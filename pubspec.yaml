@@ -1,0 +1,70 @@
+name: image_classification_mobilenet
+description: Image Classification using mobilenet.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+
+dependencies:
+  camera: ^0.10.5+2
+  flutter:
+    sdk: flutter
+  image: ^4.0.17
+  path: ^1.8.3
+  path_provider: ^2.0.15
+  image_picker: ^0.8.8
+  tflite_flutter: ^0.10.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.4.4
+  flutter_launcher_icons:
+
+flutter:
+  assets:
+    -  "assets/images/"
+    -  "assets/models/"
+    -  "assets/images/pugdog.png"
+    -  "assets/images/pixabay.png"
+    -  "assets/images/pexels-pixabay-220938.jpg"
+    -  "assets/images/pexels-steshka-willems-1591939.jpg"
+    -  "assets/images/pexels-brett-sayles-1322182.jpg"
+    -  "assets/images/pexels-charles-1851164.jpg"
+    -  "assets/images/pexels-chevanon-photography-1108099.jpg"
+    -  "assets/images/pexels-pixabay-220974.jpg"
+    -  "assets/images/pexels-cory-de-vega-732456.jpg"
+    -  "assets/images/pexels-creation-hill-1242419.jpg"
+    -  "assets/images/pexels-bruno-cervera-128817.jpg"
+    -  "assets/images/pexels-dominika-roseclay-895259.jpg"
+    -  "assets/images/pexels-hoy-1390784.jpg"
+    -  "assets/images/pexels-jens-mahnke-776078.jpg"
+    -  "assets/images/pexels-kasuma-933498.jpg"
+    -  "assets/images/pexels-marco-de-groot-1557178.jpg"
+    -  "assets/images/pexels-svetozar-milashevich-1490908.jpg"
+    -  "assets/images/pexels-tranmautritam-245035.jpg"
+    -  "assets/images/pexels-vanserline-vandenberg-1619690.jpg"
+    -  "assets/images/pexels-ylanite-koppens-612813.jpg"
+    -  "assets/images/pexels-yuliya-strizhkina-1198802.jpg"
+    -  "assets/images/pexels-summer-stock-333083.jpg"
+    -  "assets/images/pexels-goochie-poochie-grooming-3361722.jpg"
+    -  "assets/images/pexels-steshka-willems-1591939.jpg"
+    -  "assets/images/pexels-steshka-willems-1390361.jpg"
+    -  "assets/images/pexels-mindaugas-1294062.jpg"
+    -  "assets/images/pexels-melissa-jansen-van-rensburg-1954515.jpg"
+    -  "assets/images/pexels-matheus-bertelli-1906153.jpg"
+    -  "assets/images/pexels-dominika-roseclay-2023384.jpg"
+    -  "assets/images/pexels-garfield-besa-686094.jpg"
+    -  "assets/images/pexels-gilberto-reyes-825947.jpg"
+    -  "assets/images/pexels-poodles-doodles-1458916.jpg"
+
+
+flutter_launcher_icons:
+  image_path: "assets/images/pngwing.png"
+  android: "ic_launcher"
+  ios: true
+  remove_alpha_ios: true

@@ -56,6 +56,7 @@ class _BottomNavigationBarExampleState
     }
 
     // Add DogCategoriesScreen to the list of options
+    // ignore: prefer_const_constructors
     _widgetOptions!.add(DogCategoriesScreen());
 
     setState(() {});

@@ -101,7 +101,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
               ),
             ],
           ),
-          const Divider(color: Colors.black),
+          const Divider(color: Color.fromARGB(255, 0, 0, 0)),
           Expanded(
               child: Stack(
             alignment: Alignment.center,

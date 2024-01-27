@@ -17,6 +17,12 @@ dependencies:
   path_provider: ^2.0.15
   image_picker: ^0.8.8
   tflite_flutter: ^0.10.4
+  firebase_core: ^2.14.0
+  flutter_launcher_icons: ^0.12.0 # Specify the desired version
+  firebase_database: ^10.4.0
+  cached_network_image: ^3.3.1
+  supabase_flutter: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
@@ -31,7 +37,7 @@ flutter:
     - lib/assets/images/
 
 flutter_launcher_icons:
-  image_path: "assets/images/pngwing.png"
+  image_path: "assets/images/old_icon.png"  # Replace with the path to your old icon
   android: "ic_launcher"
   ios: true
   remove_alpha_ios: true

@@ -1,80 +1,94 @@
+import 'package:Breed_dog/ui/dog_detail_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:supabase_flutter/supabase_flutter.dart';
 class DogCategoriesScreen extends StatelessWidget {
   const DogCategoriesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> dogData = [
-      {'type': 'Beagle', 'imagePath': 'lib/assets/images/pexels-pixabay-220938.jpg'},
-      {'type': 'Labrador', 'imagePath': 'lib/assets/images/pexels-steshka-willems-1591939.jpg'},
-      {'type': 'Poodle', 'imagePath': 'lib/assets/images/pexels-brett-sayles-1322182.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-charles-1851164.jpg'},
-      {'type': 'Bulldog', 'imagePath': 'lib/assets/images/pexels-chevanon-photography-1108099.jpg'},
-      {'type': 'Golden Retriever', 'imagePath': 'lib/assets/images/pexels-pixabay-220974.jpg'},
-      {'type': 'Beagle', 'imagePath': 'lib/assets/images/pexels-cory-de-vega-732456.jpg'},
-      {'type': 'Labrador', 'imagePath': 'lib/assets/images/pexels-creation-hill-1242419.jpg'},
-      {'type': 'Poodle', 'imagePath': 'lib/assets/images/pexels-bruno-cervera-128817.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-dominika-roseclay-895259.jpg'},
-      {'type': 'Bulldog', 'imagePath': 'lib/assets/images/pexels-hoy-1390784.jpg'},
-      {'type': 'Golden Retriever', 'imagePath': 'lib/assets/images/pexels-jens-mahnke-776078.jpg'},
-      {'type': 'Beagle', 'imagePath': 'lib/assets/images/pexels-kasuma-933498.jpg'},
-      {'type': 'Labrador', 'imagePath': 'lib/assets/images/pexels-marco-de-groot-1557178.jpg'},
-      {'type': 'Poodle', 'imagePath': 'lib/assets/images/pexels-svetozar-milashevich-1490908.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-tranmautritam-245035.jpg'},
-      {'type': 'Bulldog', 'imagePath': 'lib/assets/images/pexels-vanserline-vandenberg-1619690.jpg'},
-      {'type': 'Golden Retriever', 'imagePath': 'lib/assets/images/pexels-ylanite-koppens-612813.jpg'},
-      {'type': 'Beagle', 'imagePath': 'lib/assets/images/pexels-yuliya-strizhkina-1198802.jpg'},
-      {'type': 'Labrador', 'imagePath': 'lib/assets/images/pexels-summer-stock-333083.jpg'},
-      {'type': 'Poodle', 'imagePath': 'lib/assets/images/pexels-goochie-poochie-grooming-3361722.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-steshka-willems-1591939.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-steshka-willems-1390361.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-mindaugas-1294062.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-melissa-jansen-van-rensburg-1954515.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-matheus-bertelli-1906153.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-dominika-roseclay-2023384.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-garfield-besa-686094.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-gilberto-reyes-825947.jpg'},
-      {'type': 'Husky', 'imagePath': 'lib/assets/images/pexels-poodles-doodles-1458916.jpg'},
-      // Add more dog types and image paths as needed
-    ];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Dog Categories'),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: FutureBuilder(
+      future: getCategories(),
+      builder: (context, snapshot) {
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return const CircularProgressIndicator();
+        }
+        if(snapshot.hasError){
+          return const Text("error note fitche categorie");
+        }
+        return 
+ Column(
           children: [
-         
-            const SizedBox(height: 20), // Add some spacing
-            // Display images in groups of three
-            for (var i = 0; i < dogData.length; i += 3)
+            const SizedBox(height: 20),
+            for (var i = 0; i < snapshot.data!.length; i += 3)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  for (var j = i; j < i + 3 && j < dogData.length; j++)
-                    Column(
-                      children: [
-                        Image.asset(
-                          dogData[j]['imagePath']!,
-                          width: 100, // Set the width as needed
-                          height: 100, // Set the height as needed
-                          fit: BoxFit.cover, // Adjust the fit as needed
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          dogData[j]['type']!,
-                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                        ),
-                      ],
+                  for (var j = i; j < i + 3 && j < snapshot.data!.length; j++)
+                    GestureDetector(
+                      onTap: () {
+                        // Navigate to DogDetailScreen when tapped
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DogDetailScreen(
+                              type: snapshot.data![j].name,
+                              imagePath: snapshot.data![j].imageUrl,
+                               description: snapshot.data![j].description,
+                            ),
+                          ),
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Image.network(
+                            snapshot.data![j].imageUrl,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            snapshot.data![j].name,
+                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
                     ),
                 ],
               ),
           ],
-        ),
-      ),
+        );
+        // data
+      },
+       ),
     );
   }
+}
+
+
+class Category {
+  final String name;
+  final String description;
+  final String imageUrl;
+
+  Category(this.name, this.description, this.imageUrl);
+
+  static Category fromJson(dynamic json) {
+    return Category(
+      json['name'],
+      json['description'],
+      json['image_url'],
+    );
+  }
+}
+
+Future<List<Category>> getCategories() {
+  return Supabase.instance.client.from('categories').select().then((value) =>
+      // ignore: unnecessary_cast
+      (value as List<dynamic>).map((json) => Category.fromJson(json)).toList());
 }

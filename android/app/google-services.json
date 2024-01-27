@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "533661493338",
+    "project_id": "breed-dog-9e73d",
+    "storage_bucket": "breed-dog-9e73d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533661493338:android:cb8cfd5fe2dbb974ce5063",
+        "android_client_info": {
+          "package_name": "org.tensorflow.image_classification_mobilenet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaA4BTWr1ertAMr5ayWD7bavkjVjWaNkc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

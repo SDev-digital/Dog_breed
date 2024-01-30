@@ -14,13 +14,20 @@ class ImageClassificationHelper {
   // Declare necessary variables
   late final Interpreter interpreter;
   late final List<String> labels;
+  // ki9assam lkhadma 3la lkhadma dyal tel 
+
+  // kidir tretment de camera et ou cupture des image 
   late final IsolateInference isolateInference;
+
+  // kat3tiH les frimse image 
   late Tensor inputTensor;
+  // result 
   late Tensor outputTensor;
 
   // Load model
   Future<void> _loadModel() async {
     // Create InterpreterOptions
+    //confeguration 
     final options = InterpreterOptions();
     // Use XNNPACK Delegate (for Android)
     if (Platform.isAndroid) {
@@ -69,6 +76,7 @@ class ImageClassificationHelper {
   }
 
   // inference camera frame
+  // groupe le travail 
   Future<Map<String, double>> inferenceCameraFrame(
       CameraImage cameraImage) async {
     var isolateModel = InferenceModel(cameraImage, null, interpreter.address,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 import '../helper/image_classification_helper.dart';
+import 'package:ionicons/ionicons.dart';
 
 class GalleryScreen extends StatefulWidget {
   const GalleryScreen({super.key});
@@ -76,9 +77,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
                     setState(() {});
                     processImage();
                   },
-                  icon: const Icon(
-                    Icons.camera,
-                    size: 35,
+                  icon:  const Icon(Ionicons.camera,
+                  
+                    size: 25,
                   ),
                   label: const Text("Take a photo"),
                 ),
@@ -94,9 +95,9 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   processImage();
                 },
                 icon: const Icon(
-                  Icons.photo,
-                  size: 35,
-                ),
+                  Ionicons.image,
+                    size: 25,
+                  ),
                 label: const Text("Pick from gallery"),
               ),
             ],

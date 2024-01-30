@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'ui/camera.dart';
 import 'ui/gallery.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
+import 'package:ionicons/ionicons.dart';
 Future<void> main() async {
   // Ensure Flutter is initialized and Firebase is initialized
   WidgetsFlutterBinding.ensureInitialized();
@@ -93,48 +93,47 @@ class _BottomNavigationBarExampleState
     setState(() {
       _selectedIndex = index;
     });
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // App bar title with an image
-        title: Image.asset(
-          'assets/images/tfl_logo.jpg',
-          width: 1000, // Adjust the width as needed
-          height: 1000,
-        ),
-        // App bar background color with opacity
-        backgroundColor:
-            const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+  }@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      // App bar title with an image
+      title: Image.asset(
+        'assets/images/tfl_logo.jpg',
+        width: 1000, // Adjust the width as needed
+        height: 1000,
       ),
-      body: Center(
-        // Display the selected widget option in the center of the screen
-        child: _widgetOptions?.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        // Items in the bottom navigation bar
-        items: const <BottomNavigationBarItem>[
+      // App bar background color with opacity
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.5),
+    ),
+    body: Center(
+      // Display the selected widget option in the center of the screen
+      child: _widgetOptions?.elementAt(_selectedIndex),
+    ),
+    bottomNavigationBar: BottomNavigationBar(
+      // Items in the bottom navigation bar
+         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.image),
+            icon: Icon(Ionicons.image),
             label: 'Gallery screen',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
+            icon: Icon(Ionicons.camera),
             label: 'Live Camera',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pets), // Icon for dog categories
+            icon: Icon(Ionicons.grid), // Icon for dog categories
             label: 'Dog Categories',
           ),
         ],
-        // Current index of the selected item
-        currentIndex: _selectedIndex,
-        // Color of the selected item
-        selectedItemColor: Colors.amber[800],
-        // Callback function when an item is tapped
-        onTap: _onItemTapped,
-      ),
-    );
-  }
+      // Current index of the selected item
+      currentIndex: _selectedIndex,
+      // Color of the selected item
+      selectedItemColor: Colors.amber[800],
+      // Callback function when an item is tapped
+      onTap: _onItemTapped,
+    ),
+  );
+}
+
 }

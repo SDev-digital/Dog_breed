@@ -1,6 +1,7 @@
 import 'package:Breed_dog/ui/dog_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 class DogCategoriesScreen extends StatelessWidget {
   const DogCategoriesScreen({Key? key}) : super(key: key);
 
@@ -12,64 +13,67 @@ class DogCategoriesScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: FutureBuilder(
-      future: getCategories(),
-      builder: (context, snapshot) {
-        if(snapshot.connectionState == ConnectionState.waiting){
-          return const CircularProgressIndicator();
-        }
-        if(snapshot.hasError){
-          return const Text("error note fitche categorie");
-        }
-        return 
- Column(
-          children: [
-            const SizedBox(height: 20),
-            for (var i = 0; i < snapshot.data!.length; i += 3)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  for (var j = i; j < i + 3 && j < snapshot.data!.length; j++)
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to DogDetailScreen when tapped
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DogDetailScreen(
-                              type: snapshot.data![j].name,
-                              imagePath: snapshot.data![j].imageUrl,
-                               description: snapshot.data![j].description,
-                            ),
+        future: getCategories(), // Appel à la fonction pour récupérer les catégories
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator()); // Affiche un indicateur de chargement pendant le chargement des données
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text("Error fetching categories")); // Affiche un message d'erreur en cas d'échec de récupération des données
+          }
+          return SingleChildScrollView( // Utilisation de SingleChildScrollView pour permettre le défilement des catégories
+            child: Column(
+              children: [
+                const SizedBox(height: 20), // Ajoute un espace au-dessus des catégories
+                for (var i = 0; i < snapshot.data!.length; i += 3)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      for (var j = i;
+                          j < i + 3 && j < snapshot.data!.length;
+                          j++)
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DogDetailScreen(
+                                  type: snapshot.data![j].name,
+                                  imagePath: snapshot.data![j].imageUrl,
+                                  description: snapshot.data![j].description,
+                                ),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.network(
+                                snapshot.data![j].imageUrl,
+                                width: 100,
+                                height: 100,
+                                fit: BoxFit.cover,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                snapshot.data![j].name,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Image.network(
-                            snapshot.data![j].imageUrl,
-                            width: 100,
-                            height: 100,
-                            fit: BoxFit.cover,
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            snapshot.data![j].name,
-                            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                ],
-              ),
-          ],
-        );
-        // data
-      },
-       ),
+                        ),
+                    ],
+                  ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
-
 
 class Category {
   final String name;
@@ -88,7 +92,9 @@ class Category {
 }
 
 Future<List<Category>> getCategories() {
-  return Supabase.instance.client.from('categories').select().then((value) =>
-      // ignore: unnecessary_cast
-      (value as List<dynamic>).map((json) => Category.fromJson(json)).toList());
+  return Supabase.instance.client.from('categories').select().then(
+        (value) => (value as List<dynamic>) // Assure que la valeur retournée est bien une liste dynamique
+            .map((json) => Category.fromJson(json)) // Convertit chaque élément JSON en objet Category
+            .toList(), // Retourne une liste de catégories
+      );
 }
